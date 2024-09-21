@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de Codar 4</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background: #0c67b1; /* Cor de fundo */
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .button-wrapper {
+            margin: 0 10px;
+            padding: 20px;
+            background-color: #ffffff; /* Cor do fundo das caixas */
+            border: 2px solid #004a87;
+            border-radius: 10px;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 250px; /* Aumentada a largura das caixas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Alinhamento centralizado */
+        }
+        .button-wrapper:hover {
+            background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+            transform: scale(1.05);
+        }
+        button {
+            padding: 8px; /* Diminuição do padding */
+            background-color: #004a87;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 40%; /* Botões ocupando 40% da largura da caixa */
+            margin: 5px; /* Adicionado margem entre os botões */
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        .resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        h2 {
+            margin-bottom: 10px;
+            font-size: 1em; /* Ajustado para melhor alinhamento */
+        }
+        h1 {
+            margin-bottom: 20px; /* Ajuste na margem */
+            font-size: 2em; /* Definindo um tamanho para o título */
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hora de Codar 4!</h1>
+    
+    <div class="button-container">
+        <div class="button-wrapper">
+            <h2>Cadastrar Estudantes</h2>
+            <button onclick="cadastrarEstudantes()">Cadastrar</button>
+        </div>
+        <div class="button-wrapper">
+            <h2>Verificar Planeta</h2>
+            <button onclick="verificarPlaneta()">Verificar</button>
+        </div>
+        <div class="button-wrapper">
+            <h2>Lista de Compras</h2>
+            <div style="display: flex; justify-content: center; width: 100%;">
+                <button onclick="gerenciarListaDeCompras()">Retirar</button>
+                <button onclick="limparLista()">Retirar Tudo</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="resultado" id="resultadoEstudantes"></div>
+    <div class="resultado" id="resultadoPlaneta"></div>
+    <div class="resultado" id="resultadoCompras"></div>
+
+    <script>
+        // Função 1: Cadastrar Estudantes
+        function cadastrarEstudantes() {
+            let estudantes = [];
+            let estudante;
+            while (true) {
+                estudante = prompt("Digite o nome do estudante (ou 'PARE' para finalizar):");
+                if (estudante.toUpperCase() === "PARE") {
+                    break;
+                }
+                if (estudante) {
+                    estudantes.push(estudante);
+                }
+            }
+            document.getElementById('resultadoEstudantes').innerHTML = `Quantidade de estudantes cadastrados: ${estudantes.length}<br>${estudantes.join(", ")}`;
+        }
+
+        // Função 2: Verificar Planeta
+        function verificarPlaneta() {
+            const planetas = ["terra", "marte", "plutão", "vênus", "júpiter", "saturno"]; // Todos em minúsculas
+            const planetaInformado = prompt("Digite o nome de um planeta:").toLowerCase(); // Converte para minúsculas
+            if (planetas.includes(planetaInformado)) {
+                document.getElementById('resultadoPlaneta').innerHTML = `${planetaInformado.charAt(0).toUpperCase() + planetaInformado.slice(1)} está na lista de planetas.`; // Exibe a primeira letra em maiúscula
+            } else {
+                document.getElementById('resultadoPlaneta').innerHTML = `${planetaInformado.charAt(0).toUpperCase() + planetaInformado.slice(1)} não está na lista de planetas.`; // Exibe a primeira letra em maiúscula
+            }
+        }
+
+        // Variável global para a lista de frutas
+        let frutas = ["Abacate", "Banana", "Cereja", "Coco", "Framboesa", "Goiaba", "Jaca", "Laranja", "Maçã", "Melancia", "Melão", "Morango", "Pera", "Uva", "Mamão"];
+
+        // Função 3: Gerenciar Lista de Compras
+        function gerenciarListaDeCompras() {
+            while (frutas.length > 0) {
+                const listaFrutas = `Lista de frutas: ${frutas.join(", ")}`;
+                const frutaRemover = prompt(`${listaFrutas}\n\nDigite o nome de uma fruta para remover da lista:`).trim();
+
+                const frutaEncontrada = frutas.find(f => f.toLowerCase() === frutaRemover.toLowerCase());
+
+                if (frutaEncontrada) {
+                    frutas = frutas.filter(f => f.toLowerCase() !== frutaRemover.toLowerCase());
+                    alert(`${frutaEncontrada} foi retirada da lista.`);
+                } else {
+                    alert("Fruta indisponível no nosso mercado.");
+                }
+            }
+
+            alert("Lista de compras finalizada.");
+        }
+
+        // Função para limpar todas as frutas da lista
+        function limparLista() {
+            frutas = [];
+            alert("Todas as frutas foram removidas da lista.");
+        }
+    </script>
+</body>
+</html>
+
+
+
